@@ -26,7 +26,7 @@ class SurVITE_MI:
         :param ɸ: latent covariates for patients {1, ..., n} in mini-batch.
         :param X: observational (at-risk) covariates for patients {1, ..., n} in mini-batch.
         :param A: vector of assigned treatment for patients {1, ..., n} in mini-batch.
-        :return: θ_k+1: next iteration of SurVITE MI risk.
+        :return: current MI loss and optimizer to be used within a tf loop.
         '''
 
         n = tf.shape(X)[0]
