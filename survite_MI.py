@@ -1,8 +1,12 @@
 import tensorflow.compat.v1 as tf
 tf.disable_eager_execution()
 tf.disable_v2_behavior() 
+
 # Based on the paper MINE (Mutual Information Neural Estimation): https://arxiv.org/abs/1801.04062.
-# Adapted to SurVITE: https://arxiv.org/pdf/2110.14001.pdf.
+# MINE provides a NN approximation to Mutual Information for generic RVs X and Y.
+# I adapt MINE to SurVITE: https://arxiv.org/pdf/2110.14001.pdf.
+# Approximating the MI between the representation ɸ and the covariates X
+# See research-task for details!
 
 class SurVITE_MI:
 
@@ -15,8 +19,6 @@ class SurVITE_MI:
         # initialize network settings
         self.α = α
         self.H = H
-
-
                 
     def SurVITE_MI_estimator(self, ɸ, X, A):
 
@@ -60,6 +62,6 @@ class SurVITE_MI:
         # Minus because we're minimizing (we want to maximize MI or equivalently minimize -MI!)
         L_MI = tf.multiply(-1.0, MI_1 + MI_0)
 
-        optimizer = tf.train.AdamOptimizer(learning_rate=0.01).minimize(L_MI)
+        train_step = tf.train.AdamOptimizer(learning_rate=0.01).minimize(L_MI)
 
-        return L_MI, optimizer
+        return L_MI, train_step
