@@ -48,4 +48,4 @@ def propensity_score(tr_x, tr_a):
 
 def is_greater_than_tau(tr_t, tau):
     # {I[t_i ⋝ τ]: t ∈ tr_t}
-    return np.array([1 if t > tau else 0 for t in tr_t])
+    return np.array([1 if t >= tau else 0 for t in tr_t])
